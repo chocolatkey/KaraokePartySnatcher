@@ -95,7 +95,7 @@ public class Main {
             if(new File(spath + File.separator + "abin_" + jt.getString("i")).exists() && new File(spath + File.separator + jt.getString("i") + "_b.mp3").exists() && new File(spath + File.separator + jt.getString("i") + "_v.mp3").exists()){
                 System.out.println("Good");
             } else {
-                System.err.println("Not good (some songs don't have a certain version thought, could be it)");
+                System.err.println("Not good (some songs don't have a certain version though, could be it)");
             }
         }
         System.out.println("DONE");
