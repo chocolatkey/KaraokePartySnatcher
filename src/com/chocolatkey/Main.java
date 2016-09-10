@@ -85,14 +85,15 @@ public class Main {
                 } catch (Exception e){}
             }
             System.out.println("DLing karaoke data..."); // Ya never know
-            savedata(jti);
+            savedata(kurl + "abin" + "_" + jti + "_" + session, spath + File.separator + "abin_" + jti);
+            savedata("http://www.karaokeparty.com/php/flashcom/mbin.php?id=" + jti, spath + File.separator + "mbin_" + jti);
         }
 
         System.out.println("Final Check: There should be " + json.length() + " songs with 3 files each (" + (json.length() * 3) + " files total)");
         for (int i = 0; i < json.length(); i++) {
             System.out.print("Song #" + (i+1) + "...");
             JSONObject jt = json.getJSONObject(i);
-            if(new File(spath + File.separator + "abin_" + jt.getString("i")).exists() && new File(spath + File.separator + jt.getString("i") + "_b.mp3").exists() && new File(spath + File.separator + jt.getString("i") + "_v.mp3").exists()){
+            if(new File(spath + File.separator + "abin_" + jt.getString("i")).exists() && new File(spath + File.separator + "mbin_" + jt.getString("i")).exists() && new File(spath + File.separator + jt.getString("i") + "_b.mp3").exists() && new File(spath + File.separator + jt.getString("i") + "_v.mp3").exists()){
                 System.out.println("Good");
             } else {
                 System.err.println("Not good (some songs don't have a certain version though, could be it)");
@@ -101,10 +102,10 @@ public class Main {
         System.out.println("DONE");
     }
 
-    static void savedata(String number){
+    static void savedata(String input, String output){
         URL website = null;
         try {
-            website = new URL(kurl + "abin_" + number + "_" + session);// Stupid analytics/uid thing
+            website = new URL(input);// Stupid analytics/uid thing
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -116,7 +117,7 @@ public class Main {
         }
         FileOutputStream fos = null;
         try {
-            fos = new FileOutputStream(spath + File.separator + "abin_" + number);
+            fos = new FileOutputStream(output);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
