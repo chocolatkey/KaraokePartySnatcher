@@ -72,28 +72,38 @@ public class Main {
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" +
                     (i+1) + "/" + json.length() + ": " + jt.getString("a") + " - " + jt.getString("t") + "\n" +
                     "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-            if(new File(spath + File.separator + jti + "_b.mp3").exists() && new File(spath + File.separator + jti + "_v.mp3").exists()){
+            if(new File(spath + File.separator + jti + "_b.mp3").exists() && new File(spath + File.separator + jti + "_i.mp3").exists() && new File(spath + File.separator + jti + "_v.mp3").exists()){
                 System.out.println("MP3s already exist, skipping them.");
             } else {
-                try {
+                /*try {
                     System.out.println("DLing vocals version...");
                     savemp3(jti, "v");
                 } catch (Exception e){}
                 try {
-                    System.out.println("DLing backing version...");
+                    System.out.println("DLing backing version...");// Mobile only??
                     savemp3(jti, "b");
                 } catch (Exception e){}
+                try {
+                    System.out.println("DLing instrumental version...");
+                    savemp3(jti, "i");
+                } catch (Exception e){}
+                */
             }
             System.out.println("DLing karaoke data..."); // Ya never know
             savedata(kurl + "abin" + "_" + jti + "_" + session, spath + File.separator + "abin_" + jti);
             savedata("http://www.karaokeparty.com/php/flashcom/mbin.php?id=" + jti, spath + File.separator + "mbin_" + jti);
+            if(!new File(spath + File.separator + jti + ".jpg").exists()){
+                System.out.println("Downloading thumbnail..."); // Ya never know
+                savedata("http://www.karaokeparty.com/static/c/sc/" + jti + ".jpg", spath + File.separator + jti + ".jpg");
+            }
+
         }
 
         System.out.println("Final Check: There should be " + json.length() + " songs with 3 files each (" + (json.length() * 3) + " files total)");
         for (int i = 0; i < json.length(); i++) {
             System.out.print("Song #" + (i+1) + "...");
             JSONObject jt = json.getJSONObject(i);
-            if(new File(spath + File.separator + "abin_" + jt.getString("i")).exists() && new File(spath + File.separator + "mbin_" + jt.getString("i")).exists() && new File(spath + File.separator + jt.getString("i") + "_b.mp3").exists() && new File(spath + File.separator + jt.getString("i") + "_v.mp3").exists()){
+            if(new File(spath + File.separator + "abin_" + jt.getString("i")).exists() && new File(spath + File.separator + "mbin_" + jt.getString("i")).exists() && new File(spath + File.separator + jt.getString("i") + "_b.mp3").exists() && new File(spath + File.separator + jt.getString("i") + "_i.mp3").exists() && new File(spath + File.separator + jt.getString("i") + "_v.mp3").exists()){
                 System.out.println("Good");
             } else {
                 System.err.println("Not good (some songs don't have a certain version though, could be it)");
