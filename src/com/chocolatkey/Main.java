@@ -75,41 +75,48 @@ public class Main {
             if(new File(spath + File.separator + jti + "_b.mp3").exists() && new File(spath + File.separator + jti + "_i.mp3").exists() && new File(spath + File.separator + jti + "_v.mp3").exists()){
                 System.out.println("MP3s already exist, skipping them.");
             } else {
-                /*try {
+                try {
                     System.out.println("DLing vocals version...");
                     savemp3(jti, "v");
                 } catch (Exception e){}
                 try {
-                    System.out.println("DLing backing version...");// Mobile only??
+                    System.out.println("DLing backing version...");
                     savemp3(jti, "b");
                 } catch (Exception e){}
                 try {
                     System.out.println("DLing instrumental version...");
                     savemp3(jti, "i");
                 } catch (Exception e){}
-                */
             }
             System.out.println("DLing karaoke data..."); // Ya never know
-            savedata(kurl + "abin" + "_" + jti + "_" + session, spath + File.separator + "abin_" + jti);
-            savedata("http://www.karaokeparty.com/php/flashcom/mbin.php?id=" + jti, spath + File.separator + "mbin_" + jti);
-            if(!new File(spath + File.separator + jti + ".jpg").exists()){
-                System.out.println("Downloading thumbnail..."); // Ya never know
-                savedata("http://www.karaokeparty.com/static/c/sc/" + jti + ".jpg", spath + File.separator + jti + ".jpg");
-            }
+            //saveif(kurl + "abin" + "_" + jti + "_" + session, spath + File.separator + "abin_" + jti);
+            //saveif("http://www.karaokeparty.com/php/flashcom/mbin.php?id=" + jti, spath + File.separator + "mbin_" + jti);//lyrics/notes
+            saveif("http://www.karaokeparty.com/php/flashcom/mbin.php?id=" + jti + "&t=v", spath + File.separator + "mbinv_" + jti);//vid link
+            System.out.println("Downloading thumbnail..."); // Ya never know
+            //saveif("http://www.karaokeparty.com/static/c/sc/" + jti + ".jpg", spath + File.separator + jti + ".jpg");
 
         }
 
-        System.out.println("Final Check: There should be " + json.length() + " songs with 3 files each (" + (json.length() * 3) + " files total)");
+        System.out.println("Final Check: There should be " + json.length() + " songs with ~5 files each (" + (json.length() * 4) + " files total)");
         for (int i = 0; i < json.length(); i++) {
             System.out.print("Song #" + (i+1) + "...");
             JSONObject jt = json.getJSONObject(i);
-            if(new File(spath + File.separator + "abin_" + jt.getString("i")).exists() && new File(spath + File.separator + "mbin_" + jt.getString("i")).exists() && new File(spath + File.separator + jt.getString("i") + "_b.mp3").exists() && new File(spath + File.separator + jt.getString("i") + "_i.mp3").exists() && new File(spath + File.separator + jt.getString("i") + "_v.mp3").exists()){
+            if(new File(spath + File.separator + "abin_" + jt.getString("i")).exists() && new File(spath + File.separator + "mbin_" + jt.getString("i")).exists() && new File(spath + File.separator + "mbinv_" + jt.getString("i")).exists() && new File(spath + File.separator + jt.getString("i") + "_b.mp3").exists() && new File(spath + File.separator + jt.getString("i") + "_i.mp3").exists() && new File(spath + File.separator + jt.getString("i") + "_v.mp3").exists()){
                 System.out.println("Good");
             } else {
                 System.err.println("Not good (some songs don't have a certain version though, could be it)");
             }
         }
         System.out.println("DONE");
+    }
+
+    static void saveif(String dlfile, String pcfile){
+        boolean overwrite = false;
+        if(!overwrite && (new File(pcfile).exists())){
+            return;
+        } else {
+            savedata(dlfile, pcfile);
+        }
     }
 
     static void savedata(String input, String output){
