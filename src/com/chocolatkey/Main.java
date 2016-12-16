@@ -89,11 +89,11 @@ public class Main {
                 } catch (Exception e){}
             }
             System.out.println("DLing karaoke data..."); // Ya never know
-            //saveif(kurl + "abin" + "_" + jti + "_" + session, spath + File.separator + "abin_" + jti);
-            //saveif("http://www.karaokeparty.com/php/flashcom/mbin.php?id=" + jti, spath + File.separator + "mbin_" + jti);//lyrics/notes
+            saveif(kurl + "abin" + "_" + jti + "_" + session, spath + File.separator + "abin_" + jti);
+            saveif("http://www.karaokeparty.com/php/flashcom/mbin.php?id=" + jti, spath + File.separator + "mbin_" + jti);//lyrics/notes
             saveif("http://www.karaokeparty.com/php/flashcom/mbin.php?id=" + jti + "&t=v", spath + File.separator + "mbinv_" + jti);//vid link
             System.out.println("Downloading thumbnail..."); // Ya never know
-            //saveif("http://www.karaokeparty.com/static/c/sc/" + jti + ".jpg", spath + File.separator + jti + ".jpg");
+            saveif("http://www.karaokeparty.com/static/c/sc/" + jti + ".jpg", spath + File.separator + jti + ".jpg");
 
         }
 
