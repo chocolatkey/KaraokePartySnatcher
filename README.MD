@@ -9,7 +9,7 @@ I intercepted the data and found that the content is still available.
 1. Download and compile (dependent on [JSoup](https://jsoup.org/download) and [org.json](https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.codeartisans%22%20AND%20a%3A%22org.json%22) libraries)
 2. Run (java -jar KaraokePartySnatcher.jar)
 3. Choose Folder to save data to
-4. Let it run. Estimated download size ~12.4 GB
+4. Let it run. Estimated download size ~12.6 GB
 
 # Issues
 
