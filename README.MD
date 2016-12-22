@@ -13,5 +13,4 @@ I intercepted the data and found that the content is still available.
 
 # Issues
 
-- Karaoke Data files (abin) are empty for premium (star) songs. Somehow need to get a premium account to do this, but login db is down...
-- TODO: parse karaoke files into friendly format
+- TODO: parse karaoke files into friendly format (some of the flash is not alchemy-based hehe)
